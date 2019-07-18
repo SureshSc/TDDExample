@@ -17,30 +17,24 @@ public class RPNCalculator {
 		
 		String[] tokens = rpnMathExpression.split(" ");
 		
+		IMathOperation mathOperation = null;
 		for (String token : tokens) {
-			if (token.equals("+")) {
+			if (isMathOperator(token)) {
+				mathOperation = MathFactory.getObject(token);
 				extractInputs();
-				result = firstNumber + secondNumber;
-				numberStack.push(result);
-			} else if (token.equals("-"))  {
-				extractInputs();
-				result = firstNumber - secondNumber;
-				numberStack.push(result);
-			} else if (token.equals("*"))  {
-				extractInputs();
-				result = firstNumber * secondNumber;
-				numberStack.push(result);
-			} else if (token.equals("/"))  {
-				extractInputs();
-				result = firstNumber / secondNumber;
+				result = mathOperation.evaluate(firstNumber, secondNumber);
 				numberStack.push(result);
 			} else {
 				numberStack.push(Double.parseDouble(token));
 			}
 		}
 		
-		
 		return numberStack.pop();
+	}
+
+	private boolean isMathOperator(String token) {
+		String mathOperator = "+-*/";
+		return mathOperator.contains(token);
 	}
 
 	private void extractInputs() {
