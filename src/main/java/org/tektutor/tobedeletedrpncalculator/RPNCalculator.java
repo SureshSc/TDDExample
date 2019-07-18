@@ -19,14 +19,20 @@ public class RPNCalculator {
 		
 		for (String token : tokens) {
 			if (token.equals("+")) {
-				secondNumber = numberStack.pop();
-				firstNumber = numberStack.pop();
+				extractInputs();
 				result = firstNumber + secondNumber;
 				numberStack.push(result);
 			} else if (token.equals("-"))  {
-				secondNumber  = numberStack.pop();
-				firstNumber = numberStack.pop();
+				extractInputs();
 				result = firstNumber - secondNumber;
+				numberStack.push(result);
+			} else if (token.equals("*"))  {
+				extractInputs();
+				result = firstNumber * secondNumber;
+				numberStack.push(result);
+			} else if (token.equals("/"))  {
+				extractInputs();
+				result = firstNumber / secondNumber;
 				numberStack.push(result);
 			} else {
 				numberStack.push(Double.parseDouble(token));
@@ -35,6 +41,11 @@ public class RPNCalculator {
 		
 		
 		return numberStack.pop();
+	}
+
+	private void extractInputs() {
+		secondNumber = numberStack.pop();
+		firstNumber = numberStack.pop();
 	}
 
 }
