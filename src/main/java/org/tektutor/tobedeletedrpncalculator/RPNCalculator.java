@@ -19,9 +19,14 @@ public class RPNCalculator {
 		
 		for (String token : tokens) {
 			if (token.equals("+")) {
-				firstNumber = numberStack.pop();
 				secondNumber = numberStack.pop();
+				firstNumber = numberStack.pop();
 				result = firstNumber + secondNumber;
+				numberStack.push(result);
+			} else if (token.equals("-"))  {
+				secondNumber  = numberStack.pop();
+				firstNumber = numberStack.pop();
+				result = firstNumber - secondNumber;
 				numberStack.push(result);
 			} else {
 				numberStack.push(Double.parseDouble(token));
