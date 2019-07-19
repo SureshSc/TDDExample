@@ -57,9 +57,8 @@ public class RPNCalculatorTest {
 	@Test
 	public void testComplexRPNMathExpression() {
 		RPNCalculator rpnCalculator = new RPNCalculator();
-		double actualResult = rpnCalculator.evaluate("10 10 * 50 2 / +");
-		double expectedResult = 125.0;
+		double actualResult = rpnCalculator.evaluate("10 20 + 20 30 + + 4 -");
+		double expectedResult = 76.0;
 		assertEquals(expectedResult, actualResult, 0.01);
-	
 	}
 }
