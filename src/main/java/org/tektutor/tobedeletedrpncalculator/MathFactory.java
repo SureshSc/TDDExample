@@ -1,6 +1,10 @@
 package org.tektutor.tobedeletedrpncalculator;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Properties;
 
 import org.tektutor.tobedeletedrpncalculator.IMathOperation;
 
@@ -10,10 +14,28 @@ public class MathFactory {
 
 	static {
 		classNameMap = new HashMap<String, String>();
-		classNameMap.put("+", "org.tektutor.tobedeletedrpncalculator.Addition");
-		classNameMap.put("-", "org.tektutor.tobedeletedrpncalculator.Subtraction");
-		classNameMap.put("*", "org.tektutor.tobedeletedrpncalculator.Multiplication");
-		classNameMap.put("/", "org.tektutor.tobedeletedrpncalculator.Division");
+		
+		try {
+			FileInputStream fileInputStream = new FileInputStream("src/main/resources/config.properties");
+			Properties properties = new Properties();
+			properties.load(fileInputStream);
+			properties.forEach( (key, value) -> {
+				classNameMap.put((String)key, (String)value);
+			});
+			
+		} catch (FileNotFoundException e) { 
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+//		classNameMap.put("+", "org.tektutor.tobedeletedrpncalculator.Addition");
+//		classNameMap.put("-", "org.tektutor.tobedeletedrpncalculator.Subtraction");
+//		classNameMap.put("*", "org.tektutor.tobedeletedrpncalculator.Multiplication");
+//		classNameMap.put("/", "org.tektutor.tobedeletedrpncalculator.Division");
 	}
 	public static IMathOperation getObject(String mathOperator) {
 		IMathOperation mathOperation = null;
